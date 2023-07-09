@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lottie Animations on click</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+    <section>
+        <div class="container">
+            <div class="content">
+                <h2>Click on Button</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio, vitae sequi libero cum
+                    accusantium autem maiores. Omnis, veniam totam sequi non, pariatur aut blanditiis, quam in ullam
+                    commodi veritatis fuga.</p>
+                <button class="start">Start</button>
+                <button class="stop">Stop</button>
+                <button class="hide">Hide</button>
+            </div>
+        </div>
+    </section>
+
+    <canvas id="confetti-holder"></canvas>
+
+    <script src="./confetti-js-master/dist/index.min.js"></script>
+    <script>
+        //Second example
+        var canvas1;
+        var canvas1Settings;
+        let buttonStart = document.querySelector(".start");
+
+        // start confetti
+        let isStart = false;
+        buttonStart.onclick = (e) => {
+            if (!isStart) {
+                canvas1Settings = {
+                    "target": "confetti-holder",
+                    "max": "180",
+                    "animate": true,
+                    "props": ["circle", "square", "triangle", "line",
+                        { "type": "svg", "src": "./confetti-js-master/site/hat.svg", "size": 25, "weight": 0.2 }
+                    ],
+                    "colors": [[165, 104, 246], [230, 61, 135], [0, 199, 228], [253, 214, 126]],
+                    "clock": "25"
+                };
+                canvas1 = new ConfettiGenerator(canvas1Settings);
+                canvas1.render();
+                isStart = true;
+            }
+        }
+        // stop confetti
+        let buttonStop = document.querySelector(".stop");
+        buttonStop.onclick = (e) => {
+            canvas1.clear();
+            var canvas2Settings = {
+                "target": "confetti-holder",
+                "max": "180",
+                "animate": false,
+                "props": ["circle", "square", "triangle", "line",
+                    { "type": "svg", "src": "./confetti-js-master/site/hat.svg", "size": 25, "weight": 0.2 }
+                ],
+                "colors": [[165, 104, 246], [230, 61, 135], [0, 199, 228], [253, 214, 126]],
+                "clock": "25"
+            };
+            var canvas2 = new ConfettiGenerator(canvas2Settings);
+            canvas2.render();
+            isStart = false;
+        }
+        // hide confetti
+        let buttonHide = document.querySelector(".hide");
+        buttonHide.onclick = (e) => {
+            canvas1.clear();
+            isStart = false;
+        }
+    </script>
+
+</body>
+
+</html>
